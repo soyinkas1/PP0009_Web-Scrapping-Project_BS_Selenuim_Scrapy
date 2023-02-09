@@ -1,16 +1,18 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+import pandas as pd
+
+states=['California','Sidcup','Bromley']
+population = [12242424,2324124,123123]
+
+dict_area = {'State':states,'Population':population}
+
+df_area =pd.DataFrame.from_dict(dict_area)
+#
+# for state in states:
+#     if state=='Sidcup':
+#         print(state)
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+with open('test.txt','w') as file:
+    file.write("This is necessary to prevent IndentationError")
