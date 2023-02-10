@@ -15,19 +15,82 @@ import requests
 #
 # with open(f'{title}.txt', 'w',encoding="utf-8") as file:
 #     file.write(transcript)
+# multiple links on same page
+# root='https://subslikescript.com'
+# website = f'{root}/movies'
+#
+# result = requests.get(website)
+# content = result.text
+#
+# soup = bs(content, 'lxml')
+#
+# main = soup.find('article', class_='main-article')
+# links = []
+# for link in main.find_all('a', href=True):
+#     links.append(f'{root}/'+link["href"])
+#
+#
+# for link in links[:4]:
+#     website = link
+#
+#     result = requests.get(website)
+#     content = result.text
+#
+#     soup = bs(content, 'lxml')
+#     #
+#     main = soup.find('article', class_ = 'main-article')
+#     title = main.find('h1').get_text()
+#     transcript = main.find('div', class_ = 'full-script').get_text(strip=True,separator="")
+#     # print(transcript)
+#
+#     with open(f'{title}.txt', 'w',encoding="utf-8") as file:
+#         file.write(transcript)
+# # print(links)
 
-website = 'https://subslikescript.com/movies'
-
-result = requests.get(website)
-content = result.text
-
-soup = bs(content, 'lxml')
-
-main = soup.find('article', class_='main-article')
-links = []
-for link in main.find_all('a', href=True):
-    links.append(link['href'])
-
-
-print(links)
-
+#     file.write(transcript)
+#
+# ## Pagination
+#
+# root='https://subslikescript.com'
+# website = f'{root}/movies_letter-A'
+# result = requests.get(website)
+# content = result.text
+# soup = bs(content, 'lxml')
+#
+# pagination = soup.find('ul', class_='pagination')
+# pages = pagination.find_all('li', class_='page-item')
+# # last_page = pages[-2].text
+# last_page = pages[-2].text
+# p=1
+# links = []
+# for page in range(1, int(last_page)+1)[:3]:
+#
+#     website=f'{website}?page={p}'
+#     result = requests.get(website)
+#     content = result.text
+#     soup = bs(content, 'lxml')
+#     box = soup.find('article', class_='main-article')
+#
+#     for link in box.find_all('a', href=True):
+#         links.append(link["href"])
+#
+#     for link in links[:4]:
+#
+#         try:
+#             print(link)
+#             website = f'{root}/{link}'
+#             result = requests.get(website)
+#             content = result.text
+#
+#             soup = bs(content, 'lxml')
+#             #
+#             box = soup.find('article', class_ = 'main-article')
+#             title = box.find('h1').get_text()
+#             transcript = box.find('div', class_ = 'full-script').get_text(strip=True,separator="")
+#             # print(transcript)
+#             p=p+1
+#             with open(f'{title}.txt', 'w',encoding="utf-8") as file:
+#                 file.write(transcript)
+#         except:
+#             print('-----Link not working -----')
+#             print(link)
