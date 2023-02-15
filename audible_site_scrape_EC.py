@@ -4,6 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 
 web = 'https://www.audible.co.uk/adblbestsellers?ref=a_search_t1_navTop_pl0cg1c0r0&pf_rd_p=f85ca050-5a0a-4b61-ad05-22714c60f1e2&pf_rd_r=4A6H4WYXC7VFER9ZXMW8&pageLoadId=33fbVEtbdOW68z63&creativeId=209a9396-a0bd-443c-93ab-d608f0c4ed36'
@@ -27,8 +29,10 @@ author = []
 lenght = []
 
 while current_page <= last_page:
-    time.sleep(8)
+    # time.sleep(8)
+    container = WebDriverWait(driver, 18).until(EC.presence_of_element_located((By.CLASS_NAME, 'adbl-impression-container ')))
     container =driver.find_element(By.CLASS_NAME, 'adbl-impression-container ')
+    products = WebDriverWait(container, 18).until(EC.presence_of_all_elements_located((By.XPATH, './/li[contains(@class, "productListItem")]')))
     products = container.find_elements(By.XPATH, './/li[contains(@class, "productListItem")]')
 
     for product in products:
@@ -37,14 +41,15 @@ while current_page <= last_page:
         lenght.append(product.find_element(By.XPATH, './/li[contains(@class,"runtimeLabel")]').text)
     current_page = current_page + 1
 
-    # try:
-    next_page = driver.find_element(By.XPATH, '//span[contains(@class, "nextButton")]')
-    next_page.click()
-    # except:
-    #     pass
+    try:
+    # next_page = WebDriverWait(driver, 18).until(EC.presence_of_element_located((By.XPATH, '//span[contains(@class, "nextButton")]')))
+        next_page = driver.find_element(By.XPATH, '//span[contains(@class, "nextButton")]')
+        next_page.click()
+    except:
+        pass
 
 driver.quit()
 
 
 df =pd.DataFrame({'Title':title, 'Author': author, 'Lenght':lenght})
-df.to_csv('page1_audible.csv',index=False)
+df.to_csv('paginEC_audible.csv',index=False)
