@@ -25,18 +25,17 @@ current_page = 1
 title = []
 author = []
 lenght = []
+
 while current_page <= last_page:
-    time.sleep(4)
+    time.sleep(2)
     container =driver.find_element(By.CLASS_NAME, 'adbl-impression-container ')
     products = container.find_elements(By.XPATH, './/li[contains(@class, "productListItem")]')
-
-
 
     for product in products:
         title.append(product.find_element(By.XPATH, './/h3[contains(@class,"bc-heading")]').text)
         author.append(product.find_element(By.XPATH, './/li[contains(@class,"authorLabel")]').text)
         lenght.append(product.find_element(By.XPATH, './/li[contains(@class,"runtimeLabel")]').text)
-    current_page =+ 1
+    current_page = current_page + 1
 
     try:
         next_page = driver.find_element(By.XPATH, '//span[contains(@class, "nextButton")]')
@@ -47,6 +46,6 @@ while current_page <= last_page:
 
 driver.quit()
 
-certificates
+
 df =pd.DataFrame({'Title':title, 'Author': author, 'Lenght':lenght})
 df.to_csv('page1_audible.csv',index=False)
