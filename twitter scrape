@@ -1,0 +1,46 @@
+from selenium import webdriver
+import pandas as pd
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+import time
+
+web = "https://twitter.com/search?q=startup%20investment&src=typed_query"
+path = "C:\\Users\\USER\\OneDrive\\Documents\\PERSONAL\\PERSONAL DEVELOPMENT\\DATA SCIENCE\\Web_Scraping_Tutorial\\chromedriver.exe"
+
+options = webdriver.ChromeOptions()
+options.add_experimental_option("detach", True)
+service = Service(executable_path=path)
+driver = webdriver.Chrome(service=service, options=options)
+driver.get(web)
+driver.maximize_window()
+time.sleep(8)
+tweets = driver.find_elements(By.XPATH, "//article[@role='article']")
+
+user_data = []
+texts = []
+comments_data = []
+retweets_data = []
+likes_data = []
+views_data = []
+
+for tweet in tweets:
+
+    user = tweet.find_element(By.XPATH, './/span[contains(text(),"@")]').text
+    text = tweet.find_element(By.XPATH, './/div[@lang]').text
+    comments = tweet.find_elements(By.XPATH, './/span[@data-testid]')
+    # retweets = tweet.find_elements(By.XPATH, './/span[@data-testid][1]')
+    # likes = tweet.find_elements(By.XPATH, './/span[@data-testid][2]')
+    # views = tweet.find_elements(By.XPATH, './/span[@data-testid][3]')
+    user_data.append(user)
+    texts.append(text)
+    comments_data.append(comments[0].text)
+    retweets_data.append(comments[1].text)
+    likes_data.append(comments[2].text)
+    views_data.append(comments[3].text)
+
+driver.quit()
+
+tweet_df = pd.DataFrame({'user': user_data, 'text': texts, 'comments': comments_data, 'retweets': retweets_data, 'likes': likes_data, 'views': views_data})
+tweet_df.to_csv('tweetbot1.csv', index=False)
+print(tweet_df)
