@@ -1,4 +1,4 @@
-# Scrapy settings for spider_tutorial project
+# Scrapy settings for splash project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "spider_tutorial"
+BOT_NAME = "splash"
 
-SPIDER_MODULES = ["spider_tutorial.spiders"]
-NEWSPIDER_MODULE = "spider_tutorial.spiders"
+SPIDER_MODULES = ["splash.spiders"]
+NEWSPIDER_MODULE = "splash.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "spider_tutorial (+http://www.yourdomain.com)"
+#USER_AGENT = "splash (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -37,20 +37,21 @@ ROBOTSTXT_OBEY = True
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-# DEFAULT_REQUEST_HEADERS = {
-#    "user-Agent":  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57,'
-# }
+#DEFAULT_REQUEST_HEADERS = {
+#    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+#    "Accept-Language": "en",
+#}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    "spider_tutorial.middlewares.SpiderTutorialSpiderMiddleware": 543,
+#    "splash.middlewares.SplashSpiderMiddleware": 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    "spider_tutorial.middlewares.SpiderTutorialDownloaderMiddleware": 543,
+#    "splash.middlewares.SplashDownloaderMiddleware": 543,
 #}
 
 # Enable or disable extensions
@@ -62,7 +63,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    "spider_tutorial.pipelines.SpiderTutorialPipeline": 300,
+#    "splash.pipelines.SplashPipeline": 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -90,3 +91,5 @@ ROBOTSTXT_OBEY = True
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+
+SPLASH_URL = 'http://192.168.59.103:8050'
