@@ -8,16 +8,16 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 
-web = "https://twitter.com/search?q=startup%2Bwomen&src=typed_query"
-path = "C:\\Users\\USER\\OneDrive\\Documents\\PERSONAL\\PERSONAL DEVELOPMENT\\DATA SCIENCE\\Web_Scraping_Tutorial\\chromedriver.exe"
+web = "https://twitter.com/OmidyarNetwork"
+path = "C:\\Users\\VG\\OneDrive\\Documents\\PERSONAL\\PERSONAL DEVELOPMENT\\DATA SCIENCE\\Web_Scraping_Tutorial\\chromedriver.exe"
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
 service = Service(executable_path=path)
-driver = webdriver.Chrome(service=service, options=options)
+driver = webdriver.Chrome(executable_path=path, options=options)
 driver.get(web)
 driver.maximize_window()
-# time.sleep(8)
+time.sleep(8)
 
 
 
@@ -49,7 +49,7 @@ tweet_ids = set()
 
 scrolling = True
 while scrolling:
-    tweets = WebDriverWait(driver, 5).until(EC.presence_of_all_elements_located((By.XPATH, "//article[@role='article']")))
+    tweets = WebDriverWait(driver, 8).until(EC.presence_of_all_elements_located((By.XPATH, "//article[@role='article']")))
     for tweet in tweets[-15:]:
         tweet_data = get_tweets(tweet)
         tweet_id = ''.join(tweet_data)
