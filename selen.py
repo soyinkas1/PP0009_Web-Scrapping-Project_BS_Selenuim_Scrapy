@@ -7,13 +7,13 @@ import time
 
 # website = 'https://subslikescript.com/movies_letter-A?page=3'
 website = 'https://www.adamchoi.co.uk/overs/detailed'
-path = 'C:\\Users\\USER\\OneDrive\\Documents\\PERSONAL\\PERSONAL\ DEVELOPMENT\\DATA SCIENCE\\Web_Scraping_Tutorial\\chromedriver.exe'
+path = "C:\\Users\\VG\\OneDrive\\Documents\\PERSONAL\\PERSONAL DEVELOPMENT\\DATA SCIENCE\\Web_Scraping_Tutorial\\chromedriver.exe"
 
 #
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
 service = Service(executable_path=path)
-driver = webdriver.Chrome(service=service,options=options)
+driver = webdriver.Chrome(executable_path=path,options=options)
 driver.get(website)
 
 all_matches_button = driver.find_element(By.XPATH, '//label[@analytics-event="All matches"]')
@@ -30,13 +30,15 @@ time.sleep(4)
 
 matches = driver.find_elements(By.TAG_NAME,'tr')
 
+# print(matches)
+
 date = []
 home_team = []
 score = []
 away_team =[]
 
 for match in matches:
-    date.append(match.find_element(By.XPATH,'./td[1]').text)
+    date.append(match.find_element(By.XPATH, './td[1]').text)
     home = match.find_element(By.XPATH, './td[2]').text
     home_team.append(home)
     print(home)
